@@ -16,14 +16,14 @@ export default async function handler(req, res) {
   res.setHeader("Access-Control-Max-Age", "86400"); // cache preflight for 1 day
 
   // ---- Handle preflight ----
-  if (req.method === "OPTIONS") {
-    return res.status(200).end();
-  }
+//   if (req.method === "OPTIONS") {
+//     return res.status(200).end();
+//   }
 
-  // ---- Only allow POST ----
-  if (req.method !== "POST") {
-    return res.status(405).json({ error: "Method not allowed. Use POST." });
-  }
+//   // ---- Only allow POST ----
+//   if (req.method !== "POST") {
+//     return res.status(405).json({ error: "Method not allowed. Use POST." });
+//   }
 
   try {
     const payload = req.body;
@@ -32,6 +32,7 @@ export default async function handler(req, res) {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
+      redirect: "follow"
     });
 
     const contentType = scriptResp.headers.get("content-type") || "";
